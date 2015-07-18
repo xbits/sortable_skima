@@ -1,0 +1,14 @@
+PATH
+  remote: .
+  specs:
+    sortable_skima (0.0.4.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  sortable_skima!

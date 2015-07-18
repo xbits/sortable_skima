@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>README - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./SortableSkima.html">SortableSkima</a>
+  
+    <li><a href="./SortableSkima/Engine.html">SortableSkima::Engine</a>
+  
+    <li><a href="./Backtrace.html">Backtrace</a>
+  
+    <li><a href="./SortableHelper.html">SortableHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-SortableSkima"><a href="SortableSkima.html">SortableSkima</a></h1>
+
+<h2 id="label-Description">Description</h2>
+
+<p>This gem aids in building sortable and filtrable tables with both local or
+remote sources.</p>
+
+<p>Table contents are loaded by ajax.</p>
+
+<h2 id="label-Installation">Installation</h2>
+
+<p>Add this line to your application’s Gemfile:</p>
+
+<pre>source 'http://whatever:skimaisdabomb@gems.skima.net' do
+  gem &quot;sortable_skima&quot;
+end</pre>
+
+<p>Run:</p>
+
+<pre>$ bundle</pre>
+
+<p>Create both backtraces and sortables migrations if you dont have them
+already in your db</p>
+
+<pre class="ruby"><span class="ruby-identifier">create_table</span> :<span class="ruby-identifier">sortables</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span> :<span class="ruby-identifier">query</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">timestamps</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">create_table</span> :<span class="ruby-identifier">backtraces</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span>  :<span class="ruby-identifier">user_id</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   :<span class="ruby-identifier">action</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   :<span class="ruby-identifier">value</span>
+    <span class="ruby-identifier">t</span>.<span class="ruby-identifier">timestamps</span>
+<span class="ruby-keyword">end</span>
+</pre>
+<hr style="height: 1px">
+
+<h1 id="label-Tables">Tables</h1>
+
+<h2 id="label-Example+usage">Example usage</h2>
+
+<pre>&lt;%= sortable_table_tag 'Project.select(&quot;projects.*, COUNT(warnings.id) as warnings_count&quot;).joins(&quot;LEFT JOIN users ON users.id = projects.manager_id '+
+                                            'LEFT JOIN divisions ON divisions.id = projects.division_id '+
+                                            'LEFT JOIN budgets ON budgets.project_id = projects.id AND budgets.active '+
+                    'LEFT JOIN budget_stats ON budget_stats.budget_id = budgets.id '+
+                                            'LEFT JOIN project_types ON project_types.id = projects.project_type_id '+
+                    'LEFT JOIN warnings ON warnings.warnable_type = \'Project\' AND warnings.warnable_id = projects.id&quot;)'+
+                                            '.joins( :project_stats).group(&quot;projects.id&quot;)',[
+               {:sort_field=&gt;'projects.id',:title=&gt;'Name',:display_method=&gt;&quot;summary&quot;,:path_method=&gt;&quot;project_path(model)&quot;,:td_class=&gt;'align_center', :style=&gt;'width: 200px;'},
+               {:sort_field=&gt;'manager_id',:title=&gt;'Manager',:display_method=&gt;&quot;manager.nil? ? '---' : manager.username&quot;,:path_method=&gt;&quot;model.manager.nil? ? nil : user_path(model.manager)&quot;,:td_class=&gt;'align_center', :style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'divisions.name',:title=&gt;'Unit',:display_method=&gt;'division.name rescue &quot;---&quot;',:td_class=&gt;'align_center',:style=&gt;'width: 100px;'},
+               {:sort_field=&gt;'nature',:title=&gt;'Nature',:display_method=&gt;'nature',:td_class=&gt;'align_center',:style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'project_types.name',:title=&gt;'Type',:display_method=&gt;'project_type.name',:td_class=&gt;'align_center',:style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'status',:title=&gt;'Status',:display_method=&gt;'get_status',:td_class=&gt;'align_center',:style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'warnings_count',:title=&gt;'Alarms',:display_method=&gt;&quot;warnings_count&quot;,:td_class=&gt;'align_center',:style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'price',:title=&gt;'Price',:display_method=&gt;&quot;price&quot;,:td_class=&gt;'align_center',:style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'budget_stats.estimated_costs',:title=&gt;'Est. Cost',:display_method=&gt;&quot;active_budget.budget_stats.estimated_costs rescue '---'&quot;,:td_class=&gt;'align_center',:style=&gt;'width: 70px;'},
+               {:sort_field=&gt;'project_stats.actual_cost',:title=&gt;'Actual Cost',:display_method=&gt;&quot;project_stats.actual_cost&quot;,:style=&gt;'width: 90px;'},
+               {:sort_field=&gt;'progress',:title=&gt;'&lt;small&gt;Prog&lt;sup&gt;3&lt;/sup&gt;&lt;/small&gt;',:display_method=&gt;&quot;100 * project_stats.progress.round(2) if !project_stats.progress.nil?&quot;,:style=&gt;'width: 70px;'}
+       ],:items_per_page=&gt;12,
+       :class=&gt;'fixed_columns alternatingRows',
+       :style =&gt; &quot;padding-top:10px; padding-bottom:10px;&quot; %&gt;</pre>
+
+<p>This will render a sortable table. with the given settings.</p>
+
+<h3 id="label-Method+sortable_table_tag%28+base_query%2C+columns%3D%5B%5D%2C+opts%3D%7B%7D+%29">Method sortable_table_tag( base_query, columns=[], opts={} )</h3>
+<dl class="rdoc-list label-list"><dt>Arguments
+<dd><dl class="rdoc-list label-list"><dt>base_query
+<dd>
+<p>A string containing a set of rails commands that must return an
+ActiveRecord::Relation.</p>
+
+<p>The query must contain a reference to any tables that will be used in
+either sorting or filtering either through a join() or an include().</p>
+
+<p>NOTICE: a simple ‘join()’ will result in an INNER JOIN exluding any
+unpaired results.</p>
+</dd><dt>columns
+<dd>
+<p>An array of hashes representing each column in the table</p>
+
+<p>The arguments for each column are:</p>
+<dl class="rdoc-list label-list"><dt>:sort_field
+<dd>
+<p>The SQL field wich will be used for sorting this will be placed in the DB
+query</p>
+</dd><dt>:title
+<dd>
+<p>The title for the html table header, can contain html, if blank the
+sort_field will be used</p>
+</dd><dt>:display_method
+<dd>
+<p>The method to generate the content of each cell in the column, this is run
+in each model instance, and has controller_context and view_context
+available if needed</p>
+</dd><dt>:path_method
+<dd>
+<p>The method used to generate an url which is then used to convert the cell
+into an hyperlink, run in the controller context with the variable
+‘model’ available containing the model instance for each row</p>
+</dd><dt>:no_display
+<dd>
+<p>This field wont be parsed to html.</p>
+
+<p>Useful for when extra data is needed for JS or to pass specific CSS for
+each row.</p>
+
+<p>NOTICE: Possible bug if the no_display columns are not added after
+displayed columns, untested.</p>
+</dd><dt>:disabled
+<dd>
+<p>Boolean. Disables ordering on this column.</p>
+</dd></dl>
+</dd><dt>options
+<dd><dl class="rdoc-list label-list"><dt>:default_order
+<dd>
+<p>Order to be used in case there is no order selected.</p>
+</dd><dt>:items_per_page
+<dd>
+<p>For paginate. Defaults to 10.</p>
+</dd><dt>:disable_backtrace
+<dd>
+<p>Boolean. Disables caching of the selected order and filters. Unstable.</p>
+</dd><dt>:paginate
+<dd>
+<p>Boolean, default true. Enable pagination.</p>
+</dd><dt>:group
+<dd>
+<p>String. ID of the table and filters group. For when there is more than one
+sortable in the same page.</p>
+</dd><dt>OTHER OPTIONS
+<dd>
+<p>All options accepted for a ‘content_tag’ helper. EX: :class, :style ,
+:some_attribute</p>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+<hr style="height: 1px">
+
+<h1 id="label-Filters">Filters</h1>
+
+<h2 id="label-Example">Example</h2>
+
+<pre>Unit: &lt;%= sortable_filter_tag  &quot;division_id&quot;, ['All']+Division.all.map{|x|[ x.name, x.id]}, :style =&gt; &quot;width:90px&quot;%&gt;
+Status: &lt;%= sortable_filter_tag  &quot;status&quot;, ['All']+Project::STATUSES, :style =&gt; &quot;width:90px&quot;%&gt;
+Nature: &lt;%= sortable_filter_tag &quot;nature&quot;, ['All']+Project::TYPES, :style =&gt; &quot;width:90px;&quot;%&gt;
+Type: &lt;%= sortable_filter_tag &quot;project_type_id&quot;, ['All']+ProjectType.all.map{|x|[ x.name, x.id]}, :style =&gt; &quot;width:90px&quot;%&gt;
+Manager: &lt;%=sortable_filter_tag(&quot;manager_id&quot;, users, :style =&gt; &quot;width:90px&quot;) %&gt;</pre>
+
+<h3 id="label-Method+sortable_filter_tag%28column_name%2C+options_list%2C++opts+%3D+%7B%7D%29">Method sortable_filter_tag(column_name, options_list,  opts = {})</h3>
+<dl class="rdoc-list label-list"><dt>Arguments
+<dd><dl class="rdoc-list label-list"><dt>column_name
+<dd>
+<p>String with the SQL column to be used for filtering. (Discarded if :raw_sql
+is true)</p>
+</dd><dt>options_list
+<dd>
+<p>An array with 1 or 2 dimensions .</p>
+
+<p>The first element ( <a href="http://i">ar</a>[0] ) is displayed the second
+( <a href="http://i">ar</a>[1] ) is the actual value to be matched. (
+some_query.where(column_name =&gt; option_value) )</p>
+
+<p>If it has only one dimension both values are the same.</p>
+
+<p>If :raw_sql is true then the second element should contain a valid WHERE
+condition. EX: ‘users.login_attempts &gt; 5’</p>
+</dd><dt>opts
+<dd><dl class="rdoc-list label-list"><dt>:raw_sql
+<dd>
+<p>Boolean. Defaults to false.</p>
+
+<p>If true the value in the options list will be used literaly in the query (
+some_query.where(option_value) )</p>
+</dd><dt>:group
+<dd>
+<p>ID to match the one in the sortable table that is related to this filter.
+For when there is more than one sortable in the same page.</p>
+</dd><dt>:selected
+<dd>
+<p>The selected option. Must be the same as the option value.</p>
+</dd><dt>OTHER OPTIONS
+<dd>
+<p>All options that are valid for a ‘select_tag’ helper</p>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+<hr style="height: 1px">
+
+<h2 id="label-Frontend">Frontend</h2>
+
+<p>This gem has Javascript and CSS files included to make the tables work on
+the browser</p>
+
+<p>*These files are added automatically to config.default_js *</p>
+
+<p>*These files must be present in your views for the frontend to work*</p>
+
+<p>&gt; skima-sortable-tables.js &gt; ,jquery.ba.bbq.js &gt; ,jquery-ui.min.js
+&gt; ,jquery-ui.css</p>
+<dl class="rdoc-list label-list"><dt>Events
+<dd><dl class="rdoc-list label-list"><dt>sortable.loaded
+<dd>
+<p>Fired after the table data has been loaded and rendered</p>
+
+<p>Arguments passed with event</p>
+
+<p>data: The data received for the table</p>
+
+<p>$table: The table element Jquery reference</p>
+
+<p>queryID: Unique identifier for the sortable query on the server</p>
+</dd></dl>
+</dd></dl>
+
+<h2 id="label-Re-using+sortable+filters+and+orders">Re-using sortable filters and orders</h2>
+
+<p>Catch the data loaded event in javascript</p>
+
+<pre>$('your sortable table or document or whatever').on('sortable.loaded',someFunction);
+function someFunction(evt, data, $tableElement, queryID){
+    //Send the reference to the query to the server
+    $.ajax({
+        url:'some_path'
+        data:{sortable_id:queryID}
+    })
+}</pre>
+
+<p>Then use the sortable filters in your controller</p>
+
+<pre class="ruby"><span class="ruby-keyword">def</span> <span class="ruby-identifier">some_action</span>
+    <span class="ruby-identifier">my_base_query</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">where</span>(<span class="ruby-string">'some_rule'</span>)<span class="ruby-comment"># or User or User.order_by() or SomeModel.join() or whatever</span>
+    <span class="ruby-identifier">include_order</span> = <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">users</span> = <span class="ruby-constant">SortableSkima</span>.<span class="ruby-identifier">attach_sortables</span>( <span class="ruby-identifier">my_base_query</span>,  <span class="ruby-identifier">params</span>[<span class="ruby-string">'sortable_id'</span>], <span class="ruby-identifier">cur_user_or_admin</span>, <span class="ruby-identifier">include_order</span>)
+
+    <span class="ruby-comment">#...do what you want with your results</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-operator">-</span><span class="ruby-operator">-</span><span class="ruby-operator">-</span>
+</pre>
+
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

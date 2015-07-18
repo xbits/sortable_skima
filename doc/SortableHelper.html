@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module SortableHelper - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/sortable_skima/helpers/sortable_helper.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-get_sortable">#get_sortable</a>
+    
+    <li><a href="#method-i-sortable_filter_tag">#sortable_filter_tag</a>
+    
+    <li><a href="#method-i-sortable_table_tag">#sortable_table_tag</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./SortableSkima.html">SortableSkima</a>
+  
+    <li><a href="./SortableSkima/Engine.html">SortableSkima::Engine</a>
+  
+    <li><a href="./Backtrace.html">Backtrace</a>
+  
+    <li><a href="./SortableHelper.html">SortableHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module SortableHelper</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="DEFAULT_GROUP">DEFAULT_GROUP
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-sortable_filter_tag" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sortable_filter_tag</span><span
+            class="method-args">(column_name, options_list, opts = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="sortable_filter_tag-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/helpers/sortable_helper.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sortable_filter_tag</span>(<span class="ruby-identifier">column_name</span>, <span class="ruby-identifier">options_list</span>,  <span class="ruby-identifier">opts</span> = {})
+  <span class="ruby-identifier">opts</span> = {<span class="ruby-value">:raw_sql=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">false</span>, <span class="ruby-value">:group=</span><span class="ruby-operator">&gt;</span><span class="ruby-constant">DEFAULT_GROUP</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">opts</span>)
+
+  <span class="ruby-identifier">srtbl</span> = <span class="ruby-identifier">get_sortable</span> <span class="ruby-identifier">opts</span>
+
+  <span class="ruby-identifier">selected_value</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:selected_value</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:selected</span>)
+  <span class="ruby-identifier">selected_value_id</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">opts</span>[<span class="ruby-value">:class</span>] = <span class="ruby-node">&quot;#{opts[:class]} sortable-filter&quot;</span>
+  <span class="ruby-identifier">filter_id</span> = <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">filters</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">options</span> = []
+  <span class="ruby-identifier">new_options_list</span> = []
+  <span class="ruby-identifier">options_list</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span>,<span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+      <span class="ruby-identifier">val</span> = [<span class="ruby-identifier">val</span>,<span class="ruby-identifier">val</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">key_val</span> = <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-identifier">selected_value_id</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">selected_value</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">selected_value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">key_val</span>
+    <span class="ruby-identifier">new_options_list</span><span class="ruby-operator">&lt;&lt;</span>[<span class="ruby-identifier">val</span>[<span class="ruby-value">0</span>],<span class="ruby-identifier">options</span>.<span class="ruby-identifier">length</span>]
+    <span class="ruby-identifier">options</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-identifier">key_val</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">options_list</span> = <span class="ruby-identifier">new_options_list</span>
+
+  <span class="ruby-identifier">filter</span> = {<span class="ruby-value">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">filter_id</span>,<span class="ruby-value">:column_name=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">column_name</span>,<span class="ruby-value">:options=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">options</span>,<span class="ruby-value">:raw_sql=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:raw_sql</span>)}
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">add_filter</span> <span class="ruby-identifier">filter</span>
+
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-filter-key'</span>] = <span class="ruby-identifier">filter_id</span>
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-group-id'</span>] = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:group</span>);
+  <span class="ruby-identifier">name</span> = <span class="ruby-node">&quot;filters[#{column_name}]&quot;</span>
+
+
+  <span class="ruby-identifier">option_tags</span> = <span class="ruby-identifier">options_for_select</span>(<span class="ruby-identifier">options_list</span>, <span class="ruby-identifier">selected_value</span>) <span class="ruby-comment">#TODO build default list from column maybe ...IE User.all.map{username, id}</span>
+  <span class="ruby-identifier">select_tag</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">option_tags</span>, <span class="ruby-identifier">opts</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sortable_filter_tag-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sortable_filter_tag-method -->
+
+    
+      <div id="method-i-sortable_table_tag" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">sortable_table_tag</span><span
+            class="method-args">(base_query, columns=[], opts={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>table options</p>
+
+<pre>- items_per_page
+- disable_backtrace
+- group</pre>
+
+<p>col options</p>
+
+<pre>- sort_field
+- display_method
+- path_method
+- title
+- no_display
+- td_class
+- link_item
+- disabled</pre>
+          
+
+          
+          <div class="method-source-code" id="sortable_table_tag-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/helpers/sortable_helper.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">sortable_table_tag</span> <span class="ruby-identifier">base_query</span>, <span class="ruby-identifier">columns</span>=[], <span class="ruby-identifier">opts</span>={}
+
+  <span class="ruby-identifier">default_opts</span> = {
+      <span class="ruby-value">:default_order=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">nil</span>,
+      <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">'sortable-list'</span>,
+      <span class="ruby-value">:items_per_page=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">10</span>,
+      <span class="ruby-value">:disable_backtrace=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">false</span>,
+      <span class="ruby-value">:paginate=</span><span class="ruby-operator">&gt;</span><span class="ruby-keyword">true</span>,
+      <span class="ruby-value">:group=</span><span class="ruby-operator">&gt;</span><span class="ruby-constant">DEFAULT_GROUP</span>
+  }
+  <span class="ruby-identifier">opts</span> <span class="ruby-operator">||=</span> {}
+  <span class="ruby-identifier">default_opts</span>[<span class="ruby-value">:class</span>] = <span class="ruby-node">&quot;#{opts[:class]} #{default_opts[:class]}&quot;</span> <span class="ruby-comment">#any parameter added classes plus 'sortableList'</span>
+  <span class="ruby-identifier">opts</span> = <span class="ruby-identifier">default_opts</span>.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">opts</span>
+
+  <span class="ruby-identifier">do_paginate</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:paginate</span>) <span class="ruby-comment">#opts[:items_per_page]</span>
+  <span class="ruby-identifier">disable_backtrace</span> = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:disable_backtrace</span>)
+
+  <span class="ruby-identifier">srtbl</span> = <span class="ruby-identifier">get_sortable</span> <span class="ruby-identifier">opts</span>
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">base_query</span> = <span class="ruby-identifier">base_query</span>
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">add_option</span> <span class="ruby-value">:default_order</span>, <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:default_order</span>)
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">add_option</span> <span class="ruby-value">:per_page</span>, <span class="ruby-identifier">opts</span>[<span class="ruby-value">:items_per_page</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">opts</span>[<span class="ruby-value">:items_per_page</span>]
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">add_option</span> <span class="ruby-value">:disable_backtrace</span>, <span class="ruby-identifier">disable_backtrace</span>
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">add_option</span> <span class="ruby-value">:paginate</span>, <span class="ruby-identifier">do_paginate</span>
+
+  <span class="ruby-identifier">out</span> = <span class="ruby-string">''</span>
+  <span class="ruby-identifier">thead</span> = <span class="ruby-string">''</span>
+
+  <span class="ruby-identifier">columns</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">sort_field</span> =  <span class="ruby-identifier">col</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:sort_field</span>)
+    <span class="ruby-identifier">display_method</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:display_method</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">sort_field</span>
+    <span class="ruby-identifier">col_title</span> = (<span class="ruby-identifier">col</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:title</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">sort_field</span>).<span class="ruby-identifier">html_safe</span>
+    <span class="ruby-identifier">path_method</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:path_method</span>)
+
+    <span class="ruby-identifier">col</span>[<span class="ruby-string">'sort-field'</span>] = <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">add_column</span>(<span class="ruby-identifier">sort_field</span>,<span class="ruby-identifier">display_method</span>, <span class="ruby-identifier">path_method</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">col</span>[<span class="ruby-value">:no_display</span>] <span class="ruby-comment">#column is not shown on front table but is still passed to js</span>
+      <span class="ruby-identifier">col</span>[<span class="ruby-string">'col-title'</span>]=<span class="ruby-identifier">col_title</span>
+      <span class="ruby-identifier">col</span>[<span class="ruby-string">'data-class'</span>]=<span class="ruby-identifier">col</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:td_class</span>)
+      <span class="ruby-identifier">col</span>[<span class="ruby-string">'data-link-item'</span>]=<span class="ruby-identifier">col</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:link_item</span>)
+      <span class="ruby-identifier">thead</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">content_tag</span>( <span class="ruby-string">'th'</span>, <span class="ruby-identifier">col_title</span>, <span class="ruby-identifier">col</span>).<span class="ruby-identifier">html_safe</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">thead</span> = <span class="ruby-identifier">content_tag</span>(<span class="ruby-string">'thead'</span>,<span class="ruby-identifier">content_tag</span>(<span class="ruby-string">'tr'</span>,<span class="ruby-identifier">thead</span>.<span class="ruby-identifier">html_safe</span>).<span class="ruby-identifier">html_safe</span>)
+  <span class="ruby-identifier">tbody</span> = <span class="ruby-identifier">content_tag</span>(<span class="ruby-string">'tbody'</span>,<span class="ruby-string">''</span>)
+  <span class="ruby-identifier">out</span> = (<span class="ruby-identifier">thead</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">tbody</span>).<span class="ruby-identifier">html_safe</span>
+
+  <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-sortable-query'</span>] = <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">id</span>
+
+
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-per-page'</span>] = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:items_per_page</span>)
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-table-token'</span>] = <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">token</span>
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-group-id'</span>] = <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:group</span>)
+  <span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-initialize-on-client'</span>] = <span class="ruby-identifier">disable_backtrace</span>
+
+  <span class="ruby-identifier">out</span> = <span class="ruby-identifier">content_tag</span> <span class="ruby-string">'table'</span>, <span class="ruby-identifier">out</span>, <span class="ruby-identifier">opts</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">do_paginate</span>
+    <span class="ruby-identifier">out</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">content_tag</span> <span class="ruby-string">'div'</span>,<span class="ruby-string">''</span>,<span class="ruby-value">:class</span>=<span class="ruby-operator">&gt;</span><span class="ruby-string">'paginate-container'</span>,<span class="ruby-string">'data-group-id'</span>=<span class="ruby-operator">&gt;</span><span class="ruby-identifier">opts</span>[<span class="ruby-string">'data-group-id'</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">out</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- sortable_table_tag-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- sortable_table_tag-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+     <section id="private-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Private Instance Methods</h3>
+
+    
+      <div id="method-i-get_sortable" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_sortable</span><span
+            class="method-args">(opts)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_sortable-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/helpers/sortable_helper.rb, line 120</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_sortable</span> <span class="ruby-identifier">opts</span>
+  <span class="ruby-ivar">@sortable_groups</span> <span class="ruby-operator">||=</span> {}
+  <span class="ruby-identifier">srtbl</span> = <span class="ruby-ivar">@sortable_groups</span>[<span class="ruby-identifier">opts</span>[<span class="ruby-value">:group</span>]]
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">srtbl</span>
+    <span class="ruby-identifier">srtbl</span> = <span class="ruby-constant">Sortable</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">token</span> = <span class="ruby-node">&quot;#{controller_name}_#{action_name}&quot;</span>
+    <span class="ruby-ivar">@sortable_groups</span>[<span class="ruby-identifier">opts</span>[<span class="ruby-value">:group</span>]] = <span class="ruby-identifier">srtbl</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">srtbl</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_sortable-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_sortable-method -->
+
+    
+    </section><!-- private-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

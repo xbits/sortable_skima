@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Backtrace - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/sortable_skima/backtrace.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">ActiveRecord::Base
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-clear_old_records">::clear_old_records</a>
+    
+    <li><a href="#method-c-for_token">::for_token</a>
+    
+    <li><a href="#method-i-get_filters">#get_filters</a>
+    
+    <li><a href="#method-i-get_order">#get_order</a>
+    
+    <li><a href="#method-i-get_page">#get_page</a>
+    
+    <li><a href="#method-i-parsed_sortables">#parsed_sortables</a>
+    
+    <li><a href="#method-i-set_filters">#set_filters</a>
+    
+    <li><a href="#method-i-set_order">#set_order</a>
+    
+    <li><a href="#method-i-set_page">#set_page</a>
+    
+    <li><a href="#method-i-update_sortables">#update_sortables</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./SortableSkima.html">SortableSkima</a>
+  
+    <li><a href="./SortableSkima/Engine.html">SortableSkima::Engine</a>
+  
+    <li><a href="./Backtrace.html">Backtrace</a>
+  
+    <li><a href="./SortableHelper.html">SortableHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Backtrace</h1>
+
+  <div id="description" class="description">
+    
+<p>require ‘JSON’ module SortableBacktrace</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="KEEP_FOR">KEEP_FOR
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-clear_old_records" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clear_old_records</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="clear_old_records-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">clear_old_records</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-node">&quot;updated_at &lt; #{Date.today - KEEP_FOR}&quot;</span>).<span class="ruby-identifier">destroy_all</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- clear_old_records-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- clear_old_records-method -->
+
+    
+      <div id="method-c-for_token" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">for_token</span><span
+            class="method-args">(token, user)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="for_token-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">for_token</span> <span class="ruby-identifier">token</span>, <span class="ruby-identifier">user</span>
+  <span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">token</span>,<span class="ruby-value">:user_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">first</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">token</span>,<span class="ruby-value">:user_id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">user_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- for_token-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- for_token-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-get_filters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_filters</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_filters-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 27</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_filters</span>
+  <span class="ruby-identifier">parsed_sortables</span>[<span class="ruby-string">'filters'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_filters-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_filters-method -->
+
+    
+      <div id="method-i-get_order" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_order</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_order-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_order</span>
+  <span class="ruby-identifier">parsed_sortables</span>[<span class="ruby-string">'order'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_order-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_order-method -->
+
+    
+      <div id="method-i-get_page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_page</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_page-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_page</span>
+  <span class="ruby-identifier">parsed_sortables</span>[<span class="ruby-string">'page'</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_page-method -->
+
+    
+      <div id="method-i-parsed_sortables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parsed_sortables</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parsed_sortables-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parsed_sortables</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parsed_sortables</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-ivar">@parsed_sortables</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">value</span> <span class="ruby-operator">||</span> <span class="ruby-string">'{}'</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@parsed_sortables</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parsed_sortables-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parsed_sortables-method -->
+
+    
+      <div id="method-i-set_filters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_filters</span><span
+            class="method-args">(new_filters)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_filters-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_filters</span> <span class="ruby-identifier">new_filters</span>
+  <span class="ruby-identifier">parsed_sortables</span>[<span class="ruby-string">'filters'</span>] = <span class="ruby-identifier">new_filters</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_filters-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_filters-method -->
+
+    
+      <div id="method-i-set_order" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_order</span><span
+            class="method-args">(new_order)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_order-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_order</span> <span class="ruby-identifier">new_order</span>
+  <span class="ruby-identifier">parsed_sortables</span>[<span class="ruby-string">'order'</span>] = <span class="ruby-identifier">new_order</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_order-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_order-method -->
+
+    
+      <div id="method-i-set_page" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_page</span><span
+            class="method-args">(new_page)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_page-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 40</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_page</span> <span class="ruby-identifier">new_page</span>
+  <span class="ruby-identifier">parsed_sortables</span>[<span class="ruby-string">'page'</span>] = <span class="ruby-identifier">new_page</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_page-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_page-method -->
+
+    
+      <div id="method-i-update_sortables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_sortables</span><span
+            class="method-args">(n_filters = nil , n_order = nil, n_page = nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="update_sortables-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima/backtrace.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_sortables</span> <span class="ruby-identifier">n_filters</span> = <span class="ruby-keyword">nil</span> , <span class="ruby-identifier">n_order</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">n_page</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">set_filters</span> <span class="ruby-identifier">n_filters</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">n_filters</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">set_order</span> <span class="ruby-identifier">n_order</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">n_order</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">set_page</span> <span class="ruby-identifier">n_page</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">n_page</span>.<span class="ruby-identifier">nil?</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">update_attribute</span> <span class="ruby-value">:value</span>, <span class="ruby-identifier">parsed_sortables</span>.<span class="ruby-identifier">to_json</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update_sortables-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update_sortables-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

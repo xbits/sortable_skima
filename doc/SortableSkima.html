@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module SortableSkima - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/sortable_skima/engine.rb
+    <li>lib/sortable_skima.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-attach_filters">::attach_filters</a>
+    
+    <li><a href="#method-c-attach_orders">::attach_orders</a>
+    
+    <li><a href="#method-c-attach_sortables">::attach_sortables</a>
+    
+    <li><a href="#method-c-root">::root</a>
+    
+    <li><a href="#method-c-setup">::setup</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README_rdoc.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./SortableSkima.html">SortableSkima</a>
+  
+    <li><a href="./SortableSkima/Engine.html">SortableSkima::Engine</a>
+  
+    <li><a href="./Backtrace.html">Backtrace</a>
+  
+    <li><a href="./SortableHelper.html">SortableHelper</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module SortableSkima</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-attach_filters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attach_filters</span><span
+            class="method-args">(query, filters, srtbl)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="attach_filters-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attach_filters</span> <span class="ruby-identifier">query</span>, <span class="ruby-identifier">filters</span>, <span class="ruby-identifier">srtbl</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">blank?</span>
+    <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter_key</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">filter_val</span> = <span class="ruby-identifier">filters</span>[<span class="ruby-identifier">filter_key</span>]
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">filter_val</span>
+        <span class="ruby-identifier">filter_obj</span> = <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">filters</span>()[<span class="ruby-identifier">filter_key</span>.<span class="ruby-identifier">to_i</span>]
+        <span class="ruby-identifier">filter_val</span> = <span class="ruby-identifier">filter_obj</span>[<span class="ruby-value">:options</span>][<span class="ruby-identifier">filter_val</span>.<span class="ruby-identifier">to_i</span>]
+        <span class="ruby-keyword">unless</span> [<span class="ruby-string">'Todos'</span>,<span class="ruby-string">'todos'</span>,<span class="ruby-string">''</span>,<span class="ruby-string">&quot;All&quot;</span>, <span class="ruby-string">&quot;all&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">filter_val</span>)
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">filter_obj</span>[<span class="ruby-value">:raw_sql</span>]
+            <span class="ruby-identifier">query</span> = <span class="ruby-identifier">query</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">filter_val</span>)
+          <span class="ruby-keyword">else</span>
+            <span class="ruby-identifier">query</span> = <span class="ruby-identifier">query</span>.<span class="ruby-identifier">where</span>(<span class="ruby-identifier">filter_obj</span>[<span class="ruby-value">:column_name</span>]=<span class="ruby-operator">&gt;</span><span class="ruby-identifier">filter_val</span>)
+          <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">query</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- attach_filters-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- attach_filters-method -->
+
+    
+      <div id="method-c-attach_orders" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attach_orders</span><span
+            class="method-args">(query, orders, srtbl)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="attach_orders-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attach_orders</span> <span class="ruby-identifier">query</span>, <span class="ruby-identifier">orders</span>, <span class="ruby-identifier">srtbl</span>
+  <span class="ruby-identifier">order_for_client</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">orders_ar</span> = (<span class="ruby-identifier">orders</span> <span class="ruby-operator">||</span> <span class="ruby-string">''</span>).<span class="ruby-identifier">split</span> <span class="ruby-string">','</span>
+  <span class="ruby-identifier">orders_ar</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">new_order</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">order_for_client</span> = <span class="ruby-identifier">new_order</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">order_for_client</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-identifier">new_order</span> = <span class="ruby-identifier">new_order</span>.<span class="ruby-identifier">split</span> <span class="ruby-string">' '</span>
+    <span class="ruby-identifier">order_by</span> = (<span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">columns_queries</span>()[<span class="ruby-identifier">new_order</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>][<span class="ruby-value">:sort_field</span>] <span class="ruby-operator">+</span> <span class="ruby-node">&quot; #{new_order[1]}&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_order</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">order_by</span>
+      <span class="ruby-identifier">query</span> = <span class="ruby-identifier">query</span>.<span class="ruby-identifier">order</span>( <span class="ruby-identifier">order_by</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+ <span class="ruby-keyword">return</span> <span class="ruby-identifier">query</span>, <span class="ruby-identifier">order_for_client</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- attach_orders-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- attach_orders-method -->
+
+    
+      <div id="method-c-attach_sortables" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">attach_sortables</span><span
+            class="method-args">(query, sortable_id, cur_user_or_admin, include_order = false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="attach_sortables-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima.rb, line 50</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">attach_sortables</span> <span class="ruby-identifier">query</span>, <span class="ruby-identifier">sortable_id</span>, <span class="ruby-identifier">cur_user_or_admin</span>, <span class="ruby-identifier">include_order</span> = <span class="ruby-keyword">false</span> <span class="ruby-comment">#, include_page = false</span>
+  <span class="ruby-identifier">srtbl</span> = <span class="ruby-constant">Sortable</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">sortable_id</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">blank?</span>
+
+  <span class="ruby-identifier">backtrace</span> = <span class="ruby-constant">Backtrace</span>.<span class="ruby-identifier">for_token</span>(<span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">token</span>, <span class="ruby-identifier">cur_user_or_admin</span>)
+
+  <span class="ruby-identifier">filters</span> = <span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">get_filters</span>
+  <span class="ruby-identifier">orders</span> = <span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">get_order</span>
+  <span class="ruby-comment">#page = backtrace.get_page</span>
+
+  <span class="ruby-identifier">orders</span> = <span class="ruby-identifier">srtbl</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:default_order</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">orders</span>.<span class="ruby-identifier">blank?</span>
+
+  <span class="ruby-identifier">query</span> = <span class="ruby-constant">SortableSkima</span><span class="ruby-operator">::</span><span class="ruby-identifier">attach_filters</span> <span class="ruby-identifier">query</span>, <span class="ruby-identifier">filters</span>, <span class="ruby-identifier">srtbl</span>
+
+  <span class="ruby-identifier">query</span> = <span class="ruby-constant">SortableSkima</span><span class="ruby-operator">::</span><span class="ruby-identifier">attach_orders</span>( <span class="ruby-identifier">query</span>, <span class="ruby-identifier">orders</span>, <span class="ruby-identifier">srtbl</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">include_order</span>
+
+  <span class="ruby-identifier">query</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- attach_sortables-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- attach_sortables-method -->
+
+    
+      <div id="method-c-root" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">root</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="root-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima.rb, line 11</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">root</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-string">'../..'</span>, <span class="ruby-keyword">__FILE__</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- root-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- root-method -->
+
+    
+      <div id="method-c-setup" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup</span><span
+            class="method-args">() { |self| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Yield self on setup for nice config blocks</p>
+          
+
+          
+          <div class="method-source-code" id="setup-source">
+            <pre><span class="ruby-comment"># File lib/sortable_skima.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup</span>
+  <span class="ruby-keyword">yield</span> <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.2.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

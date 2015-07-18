@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>SortableConverter</title>
+    <script src="js/jquery.js"></script>
+</head>
+<body>
+
+<script type="application/javascript">
+    $(function(){
+        $('#convertBtn').click(convertHtml);
+
+        function convertHtml(){
+            var input = $('#inputField').val();
+            var outPut = '';
+            var columns = [];
+            var widths = [];
+            var match;
+            var widthsRX = /<col\s*width=(["'])([^'"]+)/g
+            match = widthsRX.exec(input);
+            while (match != null) {
+                widths.push(match[2]);
+                match = widthsRX.exec(input);
+            }
+
+
+            var titles = [];
+            var fields = [];
+            var fieldsRX = /<th.*(sortField.*["'](.*)["'])*.*>(.*)<\//g
+            var sortFieldRX = /sortField.*["'](.*)["']/
+            match = fieldsRX.exec(input);
+            while (match != null) {
+                if(match){
+                    titles.push(match[3]);
+                    var fieldMatch = sortFieldRX.exec(match[0]);
+                    if(fieldMatch){
+                        fields.push(fieldMatch[1]);
+                    }else{
+                        fields.push(null);
+                    }
+                }
+                match = fieldsRX.exec(input);
+            }
+
+            if(titles.length != widths.length && widths.length != 0 ){
+                outPut = 'Cols number '+widths.length+" doesn't match headers "+titles.length;
+            }else{
+                for(var i=0; i < titles.length; i++ ){
+                    var colObj = '{';
+                    if(fields[i]){
+                        colObj += ':sort_field=>"' + fields[i] + '", '
+                    }else{
+                        colObj += ':disabled=>true, ';
+                    }
+                    if(titles[i]){
+                        colObj += ':title=>"' + titles[i] + '", '
+                    }
+                    if(widths[i]){
+                        colObj += ':style=>"width:' + widths[i] + '", '
+                    }
+                    colObj = colObj.replace(/(,\s*)$/, '');
+                    colObj+='}, \n';
+                    outPut+= colObj;
+                }
+            }
+            outPut = outPut.replace(/,(\s)+$/, '');
+            $('#outputField').val(outPut);
+
+        }
+    })
+</script>
+<input id='convertBtn' type="button" value="Convert"/>
+<br/>
+<textarea id="inputField" style="height: 600px; width:45%;"></textarea>
+<textarea id="outputField" style="height: 600px; width:45%;"></textarea>
+</body>
+</html>
