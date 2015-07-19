@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   #spec.files         = `git ls-files -z`.split("\x0")
   #spec.files = Dir["lib/**/*"] + Dir["config/**/*"] + Dir["vendor/**/**/*"] + Dir["app/**/*"] + Dir["db/**/*"]
+  spec.add_runtime_dependency "devise"
 
   spec.has_rdoc          = true
   spec.extra_rdoc_files  = %w[README.rdoc]
