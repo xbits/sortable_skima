@@ -9,53 +9,56 @@ Table contents are loaded by ajax.
 ## Installation
 
 Add this line to your application's Gemfile:
-'    source 'http://whatever:skimaisdabomb@gems.skima.net' do
-'      gem "sortable_skima"
-'    end
-
+```ruby
+    source 'http://whatever:skimaisdabomb@gems.skima.net' do
+      gem "sortable_skima"
+    end
+```
 Run:
 '    $ bundle
 
 Create both backtraces and sortables migrations if you dont have them already in your db
- '   create_table :sortables do |t|
- '       t.text :query
- '       t.timestamps
- '   end
- '   create_table :backtraces do |t|
- '       t.integer  :user_id
- '       t.string   :action
- '       t.string   :value
- '       t.timestamps
- '   end
-
+```ruby
+    create_table :sortables do |t|
+        t.text :query
+        t.timestamps
+    end
+    create_table :backtraces do |t|
+        t.integer  :user_id
+        t.string   :action
+        t.string   :value
+        t.timestamps
+    end
+```
 
 ---
 
 
 # Tables
 ## Example usage
-'    <%= sortable_table_tag 'Project.select("projects.*, COUNT(warnings.id) as warnings_count").joins("LEFT JOIN users ON users.id = projects.manager_id '+
-'						'LEFT JOIN divisions ON divisions.id = projects.division_id '+
-'						'LEFT JOIN budgets ON budgets.project_id = projects.id AND budgets.active '+
-'                        'LEFT JOIN budget_stats ON budget_stats.budget_id = budgets.id '+
-'						'LEFT JOIN project_types ON project_types.id = projects.project_type_id '+
-'                        'LEFT JOIN warnings ON warnings.warnable_type = \'Project\' AND warnings.warnable_id = projects.id")'+
-'						'.joins( :project_stats).group("projects.id")',[
-'                   {:sort_field=>'projects.id',:title=>'Name',:display_method=>"summary",:path_method=>"project_path(model)",:td_class=>'align_center', :style=>'width: 200px;'},
-'                   {:sort_field=>'manager_id',:title=>'Manager',:display_method=>"manager.nil? ? '---' : manager.username",:path_method=>"model.manager.nil? ? nil : user_path(model.manager)",:td_class=>'align_center', :style=>'width: 70px;'},
-'                   {:sort_field=>'divisions.name',:title=>'Unit',:display_method=>'division.name rescue "---"',:td_class=>'align_center',:style=>'width: 100px;'},
-'                   {:sort_field=>'nature',:title=>'Nature',:display_method=>'nature',:td_class=>'align_center',:style=>'width: 70px;'},
-'                   {:sort_field=>'project_types.name',:title=>'Type',:display_method=>'project_type.name',:td_class=>'align_center',:style=>'width: 70px;'},
-'                   {:sort_field=>'status',:title=>'Status',:display_method=>'get_status',:td_class=>'align_center',:style=>'width: 70px;'},
-'                   {:sort_field=>'warnings_count',:title=>'Alarms',:display_method=>"warnings_count",:td_class=>'align_center',:style=>'width: 70px;'},
-'                   {:sort_field=>'price',:title=>'Price',:display_method=>"price",:td_class=>'align_center',:style=>'width: 70px;'},
-'                   {:sort_field=>'budget_stats.estimated_costs',:title=>'Est. Cost',:display_method=>"active_budget.budget_stats.estimated_costs rescue '---'",:td_class=>'align_center',:style=>'width: 70px;'},
-'                   {:sort_field=>'project_stats.actual_cost',:title=>'Actual Cost',:display_method=>"project_stats.actual_cost",:style=>'width: 90px;'},
-'                   {:sort_field=>'progress',:title=>'<small>Prog<sup>3</sup></small>',:display_method=>"100 * project_stats.progress.round(2) if !project_stats.progress.nil?",:style=>'width: 70px;'}
-'           ],:items_per_page=>12,
-'           :class=>'fixed_columns alternatingRows',
-'           :style => "padding-top:10px; padding-bottom:10px;" %>
-
+```ruby
+    <%= sortable_table_tag 'Project.select("projects.*, COUNT(warnings.id) as warnings_count").joins("LEFT JOIN users ON users.id = projects.manager_id '+
+						'LEFT JOIN divisions ON divisions.id = projects.division_id '+
+						'LEFT JOIN budgets ON budgets.project_id = projects.id AND budgets.active '+
+                        'LEFT JOIN budget_stats ON budget_stats.budget_id = budgets.id '+
+						'LEFT JOIN project_types ON project_types.id = projects.project_type_id '+
+                        'LEFT JOIN warnings ON warnings.warnable_type = \'Project\' AND warnings.warnable_id = projects.id")'+
+						'.joins( :project_stats).group("projects.id")',[
+                   {:sort_field=>'projects.id',:title=>'Name',:display_method=>"summary",:path_method=>"project_path(model)",:td_class=>'align_center', :style=>'width: 200px;'},
+                   {:sort_field=>'manager_id',:title=>'Manager',:display_method=>"manager.nil? ? '---' : manager.username",:path_method=>"model.manager.nil? ? nil : user_path(model.manager)",:td_class=>'align_center', :style=>'width: 70px;'},
+                   {:sort_field=>'divisions.name',:title=>'Unit',:display_method=>'division.name rescue "---"',:td_class=>'align_center',:style=>'width: 100px;'},
+                   {:sort_field=>'nature',:title=>'Nature',:display_method=>'nature',:td_class=>'align_center',:style=>'width: 70px;'},
+                   {:sort_field=>'project_types.name',:title=>'Type',:display_method=>'project_type.name',:td_class=>'align_center',:style=>'width: 70px;'},
+                   {:sort_field=>'status',:title=>'Status',:display_method=>'get_status',:td_class=>'align_center',:style=>'width: 70px;'},
+                   {:sort_field=>'warnings_count',:title=>'Alarms',:display_method=>"warnings_count",:td_class=>'align_center',:style=>'width: 70px;'},
+                   {:sort_field=>'price',:title=>'Price',:display_method=>"price",:td_class=>'align_center',:style=>'width: 70px;'},
+                   {:sort_field=>'budget_stats.estimated_costs',:title=>'Est. Cost',:display_method=>"active_budget.budget_stats.estimated_costs rescue '---'",:td_class=>'align_center',:style=>'width: 70px;'},
+                   {:sort_field=>'project_stats.actual_cost',:title=>'Actual Cost',:display_method=>"project_stats.actual_cost",:style=>'width: 90px;'},
+                   {:sort_field=>'progress',:title=>'<small>Prog<sup>3</sup></small>',:display_method=>"100 * project_stats.progress.round(2) if !project_stats.progress.nil?",:style=>'width: 70px;'}
+           ],:items_per_page=>12,
+           :class=>'fixed_columns alternatingRows',
+           :style => "padding-top:10px; padding-bottom:10px;" %>
+```
 This will render a sortable table. with the given settings.
 
 ### Method sortable_table_tag( base_query, columns=[], opts={} )

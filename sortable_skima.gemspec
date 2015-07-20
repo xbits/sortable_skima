@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "sortable_skima"
-  spec.version       = '0.2.0.24'
+  spec.version       = '0.2.0.25'
   spec.authors       = ["xbits"]
   spec.email         = ["joao.costaxl@gmail.com"]
   spec.summary       = "Skima.net sortable tables"
