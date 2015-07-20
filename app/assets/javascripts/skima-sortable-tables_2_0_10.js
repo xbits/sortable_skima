@@ -62,7 +62,7 @@ $(document).ready(function(){
             options = this.sortableTableOptions = $.extend(this.sortableTableOptions, options);
             var $tableElm = $(this);
             var $tBody = $tableElm.find('tbody');
-          //  var $filtersForm  = $("["+FILTERS_ID_ATTR+"='"+$tableElm.attr(FILTERS_ID_ATTR)+"']");
+            //  var $filtersForm  = $("["+FILTERS_ID_ATTR+"='"+$tableElm.attr(FILTERS_ID_ATTR)+"']");
             var $filters = $("select["+GROUP_ID_ATTR+"='"+$tableElm.attr(GROUP_ID_ATTR)+"']");
             var $paginateContainer  = $(".paginate-container["+GROUP_ID_ATTR+"='"+$tableElm.attr(GROUP_ID_ATTR)+"']");
             var curField = "";
@@ -71,7 +71,7 @@ $(document).ready(function(){
             var prevOrder = "";
             var sortBtns = [];
             var loaderDiv;
-           // var lastSort = "";
+            // var lastSort = "";
             var useLocalData = false;
             var curPage = 1;
             var fields ={};
@@ -94,10 +94,10 @@ $(document).ready(function(){
                         this.sortableTableInit = true;//dont add twice
                         if(useLocalData){ $(this).attr(SORT_ATTR, $(this).html());}
                         if($(this).attr(SORT_ATTR)){
-                            var curIndex = $(this).position();//use x position
+                            var curIndex = $(this).position().left;//use x position
                             indexes.push(curIndex);
                             fields[$(this).attr(SORT_ATTR)] = {
-                                colIndex:curIndex,
+                                tmpIndex:curIndex,
                                 $element:$(this),
                                 linkItem:$(this).attr(LINK_ITEM_ATTR),
                                 class: $(this).attr(CLASS_ATTR)
@@ -118,11 +118,12 @@ $(document).ready(function(){
                     }
                 });
                 //Give colindexes sequential values instead of X position
-                indexes.sort();
+                indexes = indexes.sort(function (a, b) { return a-b; });
                 for(var i = 0; i < indexes.length; i++){
                     for(fieldName in fields){
-                        if(fields[fieldName].colIndex == indexes[i]){
+                        if(fields[fieldName].tmpIndex == indexes[i]){
                             fields[fieldName].colIndex = i;
+                            delete fields[fieldName].tmpIndex
                             break;
                         }
                     }
@@ -299,11 +300,11 @@ $(document).ready(function(){
                     var filters = {};
                     $filters.each(function(index,selectEl) {
                         var $this = $(this);
-                     //   if($this.attr(FILTER_ACTIVE_ATTR)) {
-                            var filterKey = $this.attr(FILTER_KEY_ATTR);
-                            var filterVal = $this.val();
-                            filters[filterKey] = filterVal;
-                     //   }
+                        //   if($this.attr(FILTER_ACTIVE_ATTR)) {
+                        var filterKey = $this.attr(FILTER_KEY_ATTR);
+                        var filterVal = $this.val();
+                        filters[filterKey] = filterVal;
+                        //   }
                     });
                     paramsObj.filters = filters;
                 }
@@ -362,7 +363,7 @@ $(document).ready(function(){
             function onAjaxLoaded(data){
                 $(loaderDiv).remove();
                 $tBody.html('');
-               $(data.rows_data).each(function(index,row){
+                $(data.rows_data).each(function(index,row){
                     var $tr = $(document.createElement("tr"));
                     var orderedCells = [];
                     for (var prop in row) {
