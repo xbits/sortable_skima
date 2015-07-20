@@ -1176,3 +1176,8 @@ body .ui-tooltip {
 	filter: Alpha(Opacity=30);
 	border-radius: 8px;
 }
+
+/* JC ADDED */
+th .ui-button{
+    box-sizing: border-box;
+}
