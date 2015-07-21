@@ -10,13 +10,12 @@ Table contents are loaded by ajax.
 
 Add this line to your application's Gemfile:
 ```ruby
-    source 'http://whatever:skimaisdabomb@gems.skima.net' do
-      gem "sortable_skima"
-    end
+   gem "sortable_skima"
 ```
 Run:
-'    $ bundle
-
+```
+    $ bundle
+```
 Create both backtraces and sortables migrations if you dont have them already in your db
 ```ruby
     create_table :sortables do |t|
