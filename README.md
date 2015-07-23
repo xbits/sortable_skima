@@ -2,9 +2,19 @@
 
 ## Description
 
-This gem aids in building sortable and filtrable tables with both local or remote sources.
+**This works in rails 3 before asset pipeline. Haven't tested with anything else.**
 
-Table contents are loaded by ajax.
+This gem aids in building sortable and filtrable tables with remote sources.
+This was done for our internal applications and has been very usefull for us it saves a lot of code and time when making sortable tables. 
+It takes a non standart approach by passing the ruby and SQL to be executed in strings wich are then run with eval. Don't worry though no code is sent or received to the frontend.
+
+**This is the first public gem I've released. If you'd like to use it and encounter some issues please let me know so I get some motivation to improve it. Knowing someone is using it would be great!**
+
+Table contents are loaded as JSON by AJAX and built by javascript. You can listen for the 'onSortableLoaded' JS event and use the data for other purposes.
+You can also reproduce the resulting query in the server if needed.
+
+Jquery-ui is being used to build the table headers and you'll likely have to add them to your app.
+JS files are being added to rails defaults on initialization wich is likely not suitable for most people and I imagine will cause errors with rails 3.1.9 or newer, I itend to fix this in a near future.
 
 ## Installation
 
@@ -108,12 +118,13 @@ This will render a sortable table. with the given settings.
 # Filters
 
 ## Example
+```ruby
     Unit: <%= sortable_filter_tag  "division_id", ['All']+Division.all.map{|x|[ x.name, x.id]}, :style => "width:90px"%>
     Status: <%= sortable_filter_tag  "status", ['All']+Project::STATUSES, :style => "width:90px"%>
     Nature: <%= sortable_filter_tag "nature", ['All']+Project::TYPES, :style => "width:90px;"%>
     Type: <%= sortable_filter_tag "project_type_id", ['All']+ProjectType.all.map{|x|[ x.name, x.id]}, :style => "width:90px"%>
     Manager: <%=sortable_filter_tag("manager_id", users, :style => "width:90px") %>
-
+```
 ### Method sortable_filter_tag(column_name, options_list,  opts = {})
 
 [Arguments]
@@ -168,24 +179,26 @@ This gem has Javascript and CSS files included to make the tables work on the br
 ## Re-using sortable filters and orders
 
 Catch the data loaded event in javascript
-'    $('your sortable table or document or whatever').on('sortable.loaded',someFunction);
-'    function someFunction(evt, data, $tableElement, queryID){
-'        //Send the reference to the query to the server
-'        $.ajax({
-'            url:'some_path'
-'            data:{sortable_id:queryID}
-'        })
-'    }
-
+```javascript
+    $('your sortable table or document or whatever').on('sortable.loaded',someFunction);
+    function someFunction(evt, data, $tableElement, queryID){
+        //Send the reference to the query to the server
+        $.ajax({
+            url:'some_path'
+            data:{sortable_id:queryID}
+        })
+    }
+```
 Then use the sortable filters in your controller
-'    def some_action
-'        my_base_query = User.where('some_rule')# or User or User.order_by() or SomeModel.join() or whatever
-'        include_order = false
-'        users = SortableSkima.attach_sortables( my_base_query,  params['sortable_id'], cur_user_or_admin, include_order)
-'
-'        #...do what you want with your results
-'    end
+```ruby
+    def some_action
+        my_base_query = User.where('some_rule')# or User or User.order_by() or SomeModel.join() or whatever
+        include_order = false
+        users = SortableSkima.attach_sortables( my_base_query,  params['sortable_id'], cur_user_or_admin, include_order)
 
+        #...do what you want with your results
+    end
+```
 
     ---
 
