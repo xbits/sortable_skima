@@ -1,0 +1,36 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Projects (SortableSkima V2)</h1>
+
+<div id="projects">
+  <table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+      <tr>
+        <th><%= skima_sort_link(@table, :name) %></th>
+        <th><%= skima_sort_link(@table, :manager_name) %></th>
+        <th><%= skima_sort_link(@table, :budget) %></th>
+        <th><%= skima_sort_link(@table, :status) %></th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @table.records.each do |project| %>
+        <tr>
+          <td><%= project.name %></td>
+          <td><%= project.manager_name %></td>
+          <td><%= @table.columns[:budget][:formatter].call(project) %></td>
+          <td><%= project.status %></td>
+          <td>
+            <%= link_to "Show", project %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <br>
+  <%== pagy_nav(@table.pagy_obj) if @table.pagy_obj && @table.pagy_obj.pages > 1 %>
+</div>
+
+<br>
+<%= link_to "New project", new_project_path %>
