@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SortableSkima Frontend Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div id="app" class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2xl font-bold mb-4">Vue 3 + SortableSkima API Test</h1>
+        
+        <div v-if="loading" class="text-gray-500">Loading data from /projects.json...</div>
+        
+        <div v-else>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th 
+                            v-for="col in columns" 
+                            :key="col.key"
+                            @click="sortBy(col.key)"
+                            class="p-2 border-b cursor-pointer hover:bg-gray-300"
+                        >
+                            {{ col.title }}
+                            <span v-if="currentSort === col.key">
+                                {{ currentDir === 'asc' ? '↑' : '↓' }}
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(row, idx) in data" :key="idx" class="hover:bg-gray-50 border-b">
+                        <td v-for="col in columns" :key="col.key" class="p-2">
+                            {{ row[col.key] }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="mt-4 flex justify-between items-center" v-if="pagination">
+                <p class="text-sm text-gray-600">
+                    Showing page {{ pagination.current_page }} of {{ pagination.total_pages }} 
+                    (Total: {{ pagination.total_count }})
+                </p>
+                <div class="space-x-2">
+                    <button 
+                        @click="fetchData(pagination.prev_page)" 
+                        :disabled="!pagination.prev_page"
+                        class="px-3 py-1 bg-blue-500 text-white rounded disabled:opacity-50"
+                    >Prev</button>
+                    <button 
+                        @click="fetchData(pagination.next_page)" 
+                        :disabled="!pagination.next_page"
+                        class="px-3 py-1 bg-blue-500 text-white rounded disabled:opacity-50"
+                    >Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted } = Vue
+
+        createApp({
+            setup() {
+                const data = ref([])
+                const columns = ref([])
+                const pagination = ref(null)
+                const loading = ref(true)
+                const currentSort = ref(null)
+                const currentDir = ref('asc')
+
+                const fetchData = async (page = 1) => {
+                    loading.value = true
+                    try {
+                        let url = `/projects.json?page=${page}`
+                        if (currentSort.value) {
+                            url += `&sort=${currentSort.value}&dir=${currentDir.value}`
+                        }
+                        
+                        const response = await fetch(url)
+                        const json = await response.json()
+                        
+                        data.value = json.data
+                        columns.value = json.columns
+                        pagination.value = json.pagination
+                    } catch (e) {
+                        console.error("Failed to fetch API:", e)
+                    } finally {
+                        loading.value = false
+                    }
+                }
+
+                const sortBy = (key) => {
+                    if (currentSort.value === key) {
+                        currentDir.value = currentDir.value === 'asc' ? 'desc' : 'asc'
+                    } else {
+                        currentSort.value = key
+                        currentDir.value = 'asc'
+                    }
+                    fetchData(1) // Reset to page 1 on sort
+                }
+
+                onMounted(() => {
+                    fetchData()
+                })
+
+                return {
+                    data, columns, pagination, loading,
+                    fetchData, sortBy, currentSort, currentDir
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

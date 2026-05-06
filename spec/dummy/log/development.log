@@ -164,3 +164,239 @@ Migrating to CreateProjects (20260506222057)
   [1m[36mProject Count (0.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*application='Dummy'*/[0m
   [1m[36mProject Count (3.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*application='Dummy'*/[0m
   [1m[36mProject Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM (SELECT 1 AS one FROM "projects" LIMIT 20 OFFSET 0) AS subquery_for_count /*application='Dummy'*/[0m
+Started GET "/" for 127.0.0.1 at 2026-05-06 23:45:54 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  
+ArgumentError (You should not use the `match` method in your router without specifying an HTTP method.
+If you want to expose your action to both GET and POST, add `via: [:get, :post]` option.
+If you want to expose your action to GET, use `get` in the router:
+  Instead of: match "controller#action"
+  Do: get "controller#action"):
+  
+actionpack (8.1.3) lib/action_dispatch/routing/mapper.rb:111:in `check_via'
+actionpack (8.1.3) lib/action_dispatch/routing/mapper.rb:2145:in `map_match'
+actionpack (8.1.3) lib/action_dispatch/routing/mapper.rb:1885:in `block in match'
+actionpack (8.1.3) lib/action_dispatch/routing/mapper.rb:1881:in `each'
+actionpack (8.1.3) lib/action_dispatch/routing/mapper.rb:1881:in `match'
+/Users/xbits/rails_projs/sortable_skima/config/routes.rb:3:in `block in <main>'
+actionpack (8.1.3) lib/action_dispatch/routing/route_set.rb:477:in `instance_exec'
+actionpack (8.1.3) lib/action_dispatch/routing/route_set.rb:477:in `eval_block'
+actionpack (8.1.3) lib/action_dispatch/routing/route_set.rb:459:in `draw'
+railties (8.1.3) lib/rails/engine/lazy_route_set.rb:70:in `draw'
+/Users/xbits/rails_projs/sortable_skima/config/routes.rb:1:in `<main>'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `load'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `block in load_paths'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `each'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `load_paths'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:24:in `reload!'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:51:in `block in updater'
+activesupport (8.1.3) lib/active_support/file_update_checker.rb:88:in `execute'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:33:in `execute'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:38:in `execute_unless_loaded'
+railties (8.1.3) lib/rails/application.rb:167:in `reload_routes_unless_loaded'
+railties (8.1.3) lib/rails/engine/lazy_route_set.rb:59:in `call'
+rack (3.2.6) lib/rack/tempfile_reaper.rb:20:in `call'
+rack (3.2.6) lib/rack/etag.rb:29:in `call'
+rack (3.2.6) lib/rack/conditional_get.rb:31:in `call'
+rack (3.2.6) lib/rack/head.rb:15:in `call'
+actionpack (8.1.3) lib/action_dispatch/http/content_security_policy.rb:38:in `call'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:274:in `context'
+rack-session (2.1.2) lib/rack/session/abstract/id.rb:268:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/cookies.rb:708:in `call'
+activerecord (8.1.3) lib/active_record/migration.rb:671:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/callbacks.rb:31:in `block in call'
+activesupport (8.1.3) lib/active_support/callbacks.rb:101:in `run_callbacks'
+actionpack (8.1.3) lib/action_dispatch/middleware/callbacks.rb:30:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/executor.rb:20:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.3.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.3.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.3.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.3) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.2) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.2) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.3) lib/rails/engine.rb:534:in `call'
+puma (8.0.1) lib/puma/configuration.rb:305:in `call'
+puma (8.0.1) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.1) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.1) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.1) lib/puma/server.rb:508:in `process_client'
+puma (8.0.1) lib/puma/server.rb:263:in `block in run'
+puma (8.0.1) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-05-06 23:45:55 +0100
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started HEAD "/projects.json" for 127.0.0.1 at 2026-05-06 23:48:51 +0100
+  
+LoadError (cannot load such file -- /Users/xbits/rails_projs/sortable_skima/config/routes.rb):
+  
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `load'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `block in load_paths'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `each'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:63:in `load_paths'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:24:in `reload!'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:51:in `block in updater'
+activesupport (8.1.3) lib/active_support/file_update_checker.rb:88:in `execute'
+railties (8.1.3) lib/rails/application/routes_reloader.rb:33:in `execute'
+railties (8.1.3) lib/rails/application/finisher.rb:175:in `block (2 levels) in <module:Finisher>'
+activesupport (8.1.3) lib/active_support/callbacks.rb:407:in `instance_exec'
+activesupport (8.1.3) lib/active_support/callbacks.rb:407:in `block in make_lambda'
+activesupport (8.1.3) lib/active_support/callbacks.rb:179:in `block in call'
+activesupport (8.1.3) lib/active_support/callbacks.rb:669:in `block in call'
+activesupport (8.1.3) lib/active_support/callbacks.rb:668:in `catch'
+activesupport (8.1.3) lib/active_support/callbacks.rb:668:in `call'
+activesupport (8.1.3) lib/active_support/callbacks.rb:180:in `call'
+activesupport (8.1.3) lib/active_support/callbacks.rb:560:in `block in invoke_before'
+activesupport (8.1.3) lib/active_support/callbacks.rb:560:in `each'
+activesupport (8.1.3) lib/active_support/callbacks.rb:560:in `invoke_before'
+activesupport (8.1.3) lib/active_support/callbacks.rb:109:in `run_callbacks'
+activesupport (8.1.3) lib/active_support/execution_wrapper.rb:128:in `run'
+activesupport (8.1.3) lib/active_support/execution_wrapper.rb:124:in `run!'
+activesupport (8.1.3) lib/active_support/reloader.rb:122:in `run!'
+activesupport (8.1.3) lib/active_support/execution_wrapper.rb:77:in `block in run!'
+<internal:kernel>:90:in `tap'
+activesupport (8.1.3) lib/active_support/execution_wrapper.rb:74:in `run!'
+activesupport (8.1.3) lib/active_support/reloader.rb:64:in `run!'
+actionpack (8.1.3) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/debug_exceptions.rb:31:in `call'
+web-console (4.3.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.3.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.3.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.3.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/show_exceptions.rb:32:in `call'
+railties (8.1.3) lib/rails/rack/logger.rb:41:in `call_app'
+railties (8.1.3) lib/rails/rack/logger.rb:29:in `call'
+propshaft (1.3.2) lib/propshaft/quiet_assets.rb:11:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/remote_ip.rb:98:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/request_id.rb:34:in `call'
+rack (3.2.6) lib/rack/method_override.rb:28:in `call'
+rack (3.2.6) lib/rack/runtime.rb:24:in `call'
+activesupport (8.1.3) lib/active_support/cache/strategy/local_cache_middleware.rb:30:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (8.1.3) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (8.1.3) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/executor.rb:20:in `call'
+propshaft (1.3.2) lib/propshaft/server.rb:37:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/static.rb:27:in `call'
+rack (3.2.6) lib/rack/sendfile.rb:131:in `call'
+actionpack (8.1.3) lib/action_dispatch/middleware/host_authorization.rb:143:in `call'
+railties (8.1.3) lib/rails/engine.rb:534:in `call'
+puma (8.0.1) lib/puma/configuration.rb:305:in `call'
+puma (8.0.1) lib/puma/response.rb:79:in `block in handle_request'
+puma (8.0.1) lib/puma/thread_pool.rb:434:in `with_force_shutdown'
+puma (8.0.1) lib/puma/response.rb:78:in `handle_request'
+puma (8.0.1) lib/puma/server.rb:508:in `process_client'
+puma (8.0.1) lib/puma/server.rb:263:in `block in run'
+puma (8.0.1) lib/puma/thread_pool.rb:246:in `block in spawn_thread'
+Started GET "/projects.json" for 127.0.0.1 at 2026-05-06 23:48:51 +0100
+Processing by ProjectsController#index as JSON
+  [1m[36mProject Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 200 OK in 81ms (Views: 0.7ms | ActiveRecord: 3.3ms (2 queries, 0 cached) | GC: 2.1ms)
+
+
+Started GET "/projects.json?page=1" for ::1 at 2026-05-06 23:50:12 +0100
+Started GET "/favicon.ico" for ::1 at 2026-05-06 23:50:12 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+  
+ActionController::RoutingError (No route matches [GET] "/projects.json"):
+  
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/projects.json" for ::1 at 2026-05-06 23:50:31 +0100
+Processing by ProjectsController#index as JSON
+  [1m[36mProject Count (1.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 2.0ms (1 query, 0 cached) | GC: 1.9ms)
+
+
+  
+NoMethodError (undefined method `items' for #<Pagy:0x0000000104e78560 @vars={:count_args=>[:all], :ends=>true, :limit=>20, :outset=>0, :page=>1, :page_param=>:page, :size=>7, :items=>20, :count=>50}, @count=50, @page=1, @outset=0, @limit=20, @offset=0, @last=3, @from=1, @to=20, @in=20, @prev=nil, @next=2>):
+  
+app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+app/controllers/projects_controller.rb:8:in `index'
+Started POST "/__web_console/repl_sessions/32d784bd7cf14539e5a69260aafea513/trace" for ::1 at 2026-05-06 23:51:06 +0100
+Started GET "/projects.json?page=1" for ::1 at 2026-05-06 23:51:20 +0100
+Processing by ProjectsController#index as JSON
+  Parameters: {"page"=>"1"}
+  [1m[36mProject Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 500 Internal Server Error in 20ms (ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+  
+NoMethodError (undefined method `items' for #<Pagy:0x0000000104dfdfe0 @vars={:count_args=>[:all], :ends=>true, :limit=>20, :outset=>0, :page=>"1", :page_param=>:page, :size=>7, :items=>20, :count=>50}, @count=50, @page=1, @outset=0, @limit=20, @offset=0, @last=3, @from=1, @to=20, @in=20, @prev=nil, @next=2>):
+  
+app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+app/controllers/projects_controller.rb:8:in `index'
+Started GET "/projects.json" for ::1 at 2026-05-06 23:52:14 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+Processing by ProjectsController#index as JSON
+  [1m[36mProject Count (1.8ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 200 OK in 39ms (Views: 0.2ms | ActiveRecord: 3.5ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects.json?page=1" for ::1 at 2026-05-06 23:52:18 +0100
+Processing by ProjectsController#index as JSON
+  Parameters: {"page"=>"1"}
+  [1m[36mProject Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+  [1m[36mProject Load (0.7ms)[0m  [1m[34mSELECT "projects".* FROM "projects" LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 200 OK in 13ms (Views: 0.2ms | ActiveRecord: 0.9ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects.json?page=1" for ::1 at 2026-05-06 23:52:24 +0100
+Processing by ProjectsController#index as JSON
+  Parameters: {"page"=>"1"}
+  [1m[36mProject Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+  [1m[36mProject Load (0.9ms)[0m  [1m[34mSELECT "projects".* FROM "projects" LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 200 OK in 48ms (Views: 8.7ms | ActiveRecord: 1.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects.json?page=1&sort=manager_name&dir=asc" for ::1 at 2026-05-06 23:52:36 +0100
+Processing by ProjectsController#index as JSON
+  Parameters: {"page"=>"1", "sort"=>"manager_name", "dir"=>"asc"}
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+  [1m[36mProject Load (0.7ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY manager_name asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 200 OK in 19ms (Views: 0.6ms | ActiveRecord: 1.0ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects.json?page=2&sort=manager_name&dir=asc" for ::1 at 2026-05-06 23:52:49 +0100
+Processing by ProjectsController#index as JSON
+  Parameters: {"page"=>"2", "sort"=>"manager_name", "dir"=>"asc"}
+  [1m[36mProject Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY manager_name asc LIMIT 20 OFFSET 20 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:10:in `block (2 levels) in index'
+Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
+
+

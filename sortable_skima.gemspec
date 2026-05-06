@@ -20,6 +20,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "activerecord", ">= 6.0"
+  spec.add_development_dependency "actionpack", ">= 6.0"
+  spec.add_development_dependency "capybara"
+  spec.add_development_dependency "selenium-webdriver"
   spec.extra_rdoc_files  = %w[README.md]
   spec.rdoc_options      = %w[--main README.md]
   spec.files = %w[README.md] + Dir['{lib,app}/**/*']

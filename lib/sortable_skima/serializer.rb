@@ -7,6 +7,8 @@ module SortableSkima
     end
 
     def as_json
+      table.records # Force query execution to populate pagy_obj
+
       {
         columns: serialize_columns,
         filters: serialize_filters,
@@ -44,7 +46,7 @@ module SortableSkima
         current_page: pagy.page,
         total_pages: pagy.pages,
         total_count: pagy.count,
-        per_page: pagy.items,
+        per_page: pagy.limit,
         next_page: pagy.next,
         prev_page: pagy.prev
       }
