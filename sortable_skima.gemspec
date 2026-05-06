@@ -14,30 +14,13 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
   #spec.files         = `git ls-files -z`.split("\x0")
   #spec.files = Dir["lib/**/*"] + Dir["config/**/*"] + Dir["vendor/**/**/*"] + Dir["app/**/*"] + Dir["db/**/*"]
-  spec.add_runtime_dependency "devise"
+  spec.add_runtime_dependency "railties", ">= 6.0"
+  spec.add_runtime_dependency "pagy", "~> 9.0"
 
   spec.has_rdoc          = true
   spec.extra_rdoc_files  = %w[README.md]
   spec.rdoc_options      = %w[--main README.md]
-  spec.files = %w[README.md] + Dir['{lib,config,app,db,doc}/**/*'] + Dir["vendor/**/**/*"]
-  spec.post_install_message =
-        "sortable: Skima.net  is da bomb!! "+
-    "\n ---->REMEMBER TO CREATE BOTH MIGRATIONS Sortable AND Backtrace <---"+
-    "\n Ex: ========================================="+
-    "\n   create_table :sortables do |t|"+
-    "\n     t.text :query"+
-    "\n     t.timestamps"+
-    "\n   end"+
-    "\n   create_table :backtraces do |t|"+
-    "\n     t.integer  :user_id"+
-    "\n     t.string   :action"+
-    "\n     t.string   :value"+
-    "\n     t.timestamps"+
-    "\n   end"+
-    "\n ============================================="
-
-
- # spec.add_dependency "sprockets"
+  spec.files = %w[README.md] + Dir['{lib,app}/**/*']
 end
 
 #desc 'Turn this plugin into a gem.'
