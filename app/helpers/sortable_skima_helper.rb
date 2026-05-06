@@ -31,4 +31,25 @@ module SortableSkimaHelper
 
     link_to "#{config[:title]}#{icon}".html_safe, url_for(link_params), options
   end
+
+  # Generates a select tag for a table filter
+  # @param table [SortableSkima::Base] The table instance
+  # @param filter_name [Symbol] The name of the filter to render
+  # @param options [Hash] HTML options for the select_tag
+  def skima_filter_select(table, filter_name, options = {})
+    config = table.filters[filter_name.to_sym]
+    return "" unless config
+
+    # Current selected value
+    selected = table.params.dig(:filter, filter_name.to_s)
+    
+    # Options array including a blank/all option
+    choices = [["All #{filter_name.to_s.titleize}", ""]] + config[:collection].map { |c| [c, c] }
+
+    # Generate the select input. 
+    # Use onchange: "this.form.requestSubmit()" to auto-submit when using Hotwire
+    options[:onchange] ||= "this.form.requestSubmit()"
+    
+    select_tag "filter[#{filter_name}]", options_for_select(choices, selected), options
+  end
 end

@@ -400,3 +400,277 @@ Processing by ProjectsController#index as JSON
 Completed 200 OK in 9ms (Views: 0.2ms | ActiveRecord: 0.6ms (2 queries, 0 cached) | GC: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2026-05-07 00:17:17 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='Dummy'*/[0m
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (6.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.8ms)[0m  [1m[34mSELECT "projects".* FROM "projects" LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 112.9ms | GC: 47.9ms)
+  Rendered layout layouts/application.html.erb (Duration: 119.5ms | GC: 48.3ms)
+Completed 200 OK in 156ms (Views: 116.2ms | ActiveRecord: 9.1ms (2 queries, 0 cached) | GC: 49.0ms)
+
+
+Started GET "/projects?dir=asc&sort=manager_name" for 127.0.0.1 at 2026-05-07 00:17:21 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"manager_name"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (1.8ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY manager_name asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 26.4ms | GC: 0.7ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.0ms | GC: 0.7ms)
+Completed 200 OK in 30ms (Views: 25.4ms | ActiveRecord: 2.0ms (2 queries, 0 cached) | GC: 0.7ms)
+
+
+Started GET "/projects?dir=desc&sort=manager_name" for 127.0.0.1 at 2026-05-07 00:17:22 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"manager_name"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.8ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY manager_name desc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 7.2ms | GC: 2.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.6ms | GC: 2.0ms)
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.8ms (2 queries, 0 cached) | GC: 2.0ms)
+
+
+Started GET "/projects?dir=asc&sort=manager_name" for 127.0.0.1 at 2026-05-07 00:17:23 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"manager_name"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY manager_name asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 5.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.9ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=asc&sort=budget" for 127.0.0.1 at 2026-05-07 00:17:24 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"budget"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY budget asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 7.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.6ms | GC: 0.0ms)
+Completed 200 OK in 10ms (Views: 8.6ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=desc&sort=budget" for 127.0.0.1 at 2026-05-07 00:17:25 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"budget"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY budget desc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 4.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.7ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 4.8ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=asc&sort=budget" for 127.0.0.1 at 2026-05-07 00:17:26 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"budget"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY budget asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 3.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.9ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 4.0ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=desc&sort=budget" for 127.0.0.1 at 2026-05-07 00:17:27 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"budget"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY budget desc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 3.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.0ms | GC: 0.0ms)
+Completed 200 OK in 5ms (Views: 4.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=asc&sort=status" for 127.0.0.1 at 2026-05-07 00:17:28 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"status"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY status asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 5.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.0ms | GC: 0.0ms)
+Completed 200 OK in 7ms (Views: 6.2ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=desc&sort=status" for 127.0.0.1 at 2026-05-07 00:17:28 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"status"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY status desc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 4.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=asc&sort=status" for 127.0.0.1 at 2026-05-07 00:17:29 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"status"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY status asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 4.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 4.9ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=asc&sort=name" for 127.0.0.1 at 2026-05-07 00:17:31 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"name"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY name asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 6.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.9ms | GC: 0.0ms)
+Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 0.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=desc&sort=name" for 127.0.0.1 at 2026-05-07 00:17:32 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"name"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.2ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY name desc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 4.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.0ms | GC: 0.0ms)
+Completed 200 OK in 6ms (Views: 5.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=desc&sort=name&page=2" for 127.0.0.1 at 2026-05-07 00:17:33 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"name", "page"=>"2"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY name desc LIMIT 20 OFFSET 20 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 2.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 3.1ms | GC: 0.0ms)
+Completed 200 OK in 4ms (Views: 3.1ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/projects?dir=desc&sort=name&page=3" for 127.0.0.1 at 2026-05-07 00:17:35 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"desc", "sort"=>"name", "page"=>"3"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.1ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY name desc LIMIT 20 OFFSET 40 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 15.5ms | GC: 8.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.9ms | GC: 8.4ms)
+Completed 200 OK in 17ms (Views: 15.9ms | ActiveRecord: 0.2ms (2 queries, 0 cached) | GC: 8.4ms)
+
+
+Started GET "/projects/new" for 127.0.0.1 at 2026-05-07 00:17:37 +0100
+Processing by ProjectsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/new.html.erb within layouts/application
+  Rendered projects/_form.html.erb (Duration: 18.4ms | GC: 1.2ms)
+  Rendered projects/new.html.erb within layouts/application (Duration: 19.8ms | GC: 1.2ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.5ms | GC: 1.2ms)
+Completed 200 OK in 24ms (Views: 21.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 1.2ms)
+
+
+Started POST "/projects" for 127.0.0.1 at 2026-05-07 00:17:54 +0100
+Processing by ProjectsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "project"=>{"name"=>"Puga", "manager_name"=>"Maringa", "budget"=>"1000", "status"=>"Dead"}, "commit"=>"Create Project"}
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:32:in `block in create'
+  [1m[36mProject Create (5.9ms)[0m  [1m[32mINSERT INTO "projects" ("name", "manager_name", "budget", "status", "created_at", "updated_at") VALUES ('Puga', 'Maringa', 1000, 'Dead', '2026-05-06 23:17:54.722848', '2026-05-06 23:17:54.722848') RETURNING "id" /*action='create',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:32:in `block in create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:32:in `block in create'
+Redirected to http://localhost:3006/projects/51
+↳ app/controllers/projects_controller.rb:33:in `block (2 levels) in create'
+Completed 302 Found in 31ms (ActiveRecord: 7.4ms (1 query, 0 cached) | GC: 2.8ms)
+
+
+Started GET "/projects/51" for 127.0.0.1 at 2026-05-07 00:17:54 +0100
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"51"}
+  [1m[36mProject Load (0.4ms)[0m  [1m[34mSELECT "projects".* FROM "projects" WHERE "projects"."id" = 51 LIMIT 1 /*action='show',application='Dummy',controller='projects'*/[0m
+  ↳ app/controllers/projects_controller.rb:68:in `set_project'
+  Rendering layout layouts/application.html.erb
+  Rendering projects/show.html.erb within layouts/application
+  Rendered projects/_project.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered projects/show.html.erb within layouts/application (Duration: 45.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 55.8ms | GC: 0.0ms)
+Completed 200 OK in 83ms (Views: 63.8ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2026-05-07 00:19:08 +0100
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (3.2ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (1.5ms)[0m  [1m[34mSELECT "projects".* FROM "projects" LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 40.6ms | GC: 1.1ms)
+  Rendered layout layouts/application.html.erb (Duration: 44.1ms | GC: 1.1ms)
+Completed 200 OK in 57ms (Views: 44.3ms | ActiveRecord: 4.6ms (2 queries, 0 cached) | GC: 1.1ms)
+
+
+Started GET "/projects?dir=asc&sort=status" for 127.0.0.1 at 2026-05-07 00:19:10 +0100
+Processing by ProjectsController#index as HTML
+  Parameters: {"dir"=>"asc", "sort"=>"status"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  [1m[36mProject Count (0.1ms)[0m  [1m[34mSELECT COUNT(*) FROM "projects" /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  [1m[36mProject Load (0.3ms)[0m  [1m[34mSELECT "projects".* FROM "projects" ORDER BY status asc LIMIT 20 OFFSET 0 /*action='index',application='Dummy',controller='projects'*/[0m
+  ↳ app/views/projects/index.html.erb:18
+  Rendered projects/index.html.erb within layouts/application (Duration: 10.5ms | GC: 1.4ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.9ms | GC: 1.4ms)
+Completed 200 OK in 12ms (Views: 10.8ms | ActiveRecord: 0.4ms (2 queries, 0 cached) | GC: 1.4ms)
+
+
