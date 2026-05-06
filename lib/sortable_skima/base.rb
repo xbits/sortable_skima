@@ -75,8 +75,11 @@ module SortableSkima
     end
 
     def apply_filters(query)
+      filter_params = params[:filter]
+      return query unless filter_params
+
       filters.each do |name, config|
-        val = params[:filter] && params[:filter][name.to_s]
+        val = filter_params[name.to_s] || filter_params[name.to_sym]
         next if val.blank?
 
         if config[:query_block]

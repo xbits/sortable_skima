@@ -1,204 +1,123 @@
-# SortableSkima
+# SortableSkima V2
 
-## Description
+SortableSkima provides a clean, class-based DSL for building highly dynamic, sortable, and filterable tables in Rails 7+. It securely maps your view parameters to backend SQL using `Arel`, completely eliminating the need for complex string evaluations or database caching.
 
-**This works in rails 3 before asset pipeline. Haven't tested with anything else.**
-
-This gem aids in building sortable and filtrable tables with remote sources.
-This was done for our internal applications and has been very usefull for us it saves a lot of code and time when making sortable tables. 
-It takes a non standart approach by passing the ruby and SQL to be executed in strings wich are then run with eval. Don't worry though no code is sent or received to the frontend.
-
-**This is the first public gem I've released. If you'd like to use it and encounter some issues please let me know so I get some motivation to improve it. Knowing someone is using it would be great!**
-
-Table contents are loaded as JSON by AJAX and built by javascript. You can listen for the 'onSortableLoaded' JS event and use the data for other purposes.
-You can also reproduce the resulting query in the server if needed.
-
-Jquery-ui is being used to build the table headers and you'll likely have to add them to your app.
-JS files are being added to rails defaults on initialization wich is likely not suitable for most people and I imagine will cause errors with rails 3.1.9 or newer, I itend to fix this in a near future.
+It is designed to be frontend-agnostic, providing built-in support for standard Rails Hotwire flows, as well as robust JSON serialization for modern Single Page Applications (React, Vue, Svelte).
 
 ## Installation
 
 Add this line to your application's Gemfile:
+
 ```ruby
-   gem "sortable_skima"
+gem 'sortable_skima', github: 'xbits/sortable_skima', branch: 'v2-modernization'
 ```
-Run:
-```
-    $ bundle
-```
-Create both backtraces and sortables migrations if you dont have them already in your db
+
+And then execute:
+
+    $ bundle install
+
+*(Note: V2 removes the need for any database migrations. The legacy `sortables` and `backtraces` tables are no longer required).*
+
+## Usage: The Table Class
+
+Create a class inheriting from `SortableSkima::Base` to define your table's data source, columns, and filters.
+
 ```ruby
-    create_table :sortables do |t|
-        t.text :query
-        t.timestamps
+# app/tables/projects_table.rb
+class ProjectsTable < SortableSkima::Base
+  # 1. Define the base query using standard ActiveRecord
+  def base_query
+    Project.left_joins(:manager).select("projects.*, users.name as manager_name")
+  end
+
+  # 2. Define Columns
+  # By default, columns are not sortable. 
+  # To make them sortable, map them to a safe SQL fragment.
+  column :name, title: "Project Name", sortable: "projects.name"
+  column :manager, title: "Manager", sortable: "users.name"
+  
+  # 3. Define custom formatters using blocks
+  column :budget, title: "Budget", sortable: "projects.budget" do |project|
+    "$#{project.budget}"
+  end
+  
+  # 4. Define Filters
+  filter :status, collection: ["Active", "Archived"]
+end
+```
+
+## Controller Integration
+
+Instantiate the table in your controller, passing in the HTTP `params`.
+
+```ruby
+class ProjectsController < ApplicationController
+  def index
+    @table = ProjectsTable.new(params)
+    
+    respond_to do |format|
+      format.html # Renders standard ERB
+      format.json { render json: @table.as_json } # Headless JSON API
     end
-    create_table :backtraces do |t|
-        t.integer  :user_id
-        t.string   :action
-        t.string   :value
-        t.timestamps
-    end
+  end
+end
 ```
 
----
+## Frontend: Rails Hotwire (HTML)
 
+Use the provided helper `skima_sort_link` to generate sorting links in your table headers. These links automatically integrate with Turbo to provide seamless updates without full page reloads.
 
-# Tables
-## Example usage
-```ruby
-    <%= sortable_table_tag 'Project.select("projects.*, COUNT(warnings.id) as warnings_count").joins("LEFT JOIN users ON users.id = projects.manager_id '+
-						'LEFT JOIN divisions ON divisions.id = projects.division_id '+
-						'LEFT JOIN budgets ON budgets.project_id = projects.id AND budgets.active '+
-                        'LEFT JOIN budget_stats ON budget_stats.budget_id = budgets.id '+
-						'LEFT JOIN project_types ON project_types.id = projects.project_type_id '+
-                        'LEFT JOIN warnings ON warnings.warnable_type = \'Project\' AND warnings.warnable_id = projects.id")'+
-						'.joins( :project_stats).group("projects.id")',[
-                   {:sort_field=>'projects.id',:title=>'Name',:display_method=>"summary",:path_method=>"project_path(model)",:td_class=>'align_center', :style=>'width: 200px;'},
-                   {:sort_field=>'manager_id',:title=>'Manager',:display_method=>"manager.nil? ? '---' : manager.username",:path_method=>"model.manager.nil? ? nil : user_path(model.manager)",:td_class=>'align_center', :style=>'width: 70px;'},
-                   {:sort_field=>'divisions.name',:title=>'Unit',:display_method=>'division.name rescue "---"',:td_class=>'align_center',:style=>'width: 100px;'},
-                   {:sort_field=>'nature',:title=>'Nature',:display_method=>'nature',:td_class=>'align_center',:style=>'width: 70px;'},
-                   {:sort_field=>'project_types.name',:title=>'Type',:display_method=>'project_type.name',:td_class=>'align_center',:style=>'width: 70px;'},
-                   {:sort_field=>'status',:title=>'Status',:display_method=>'get_status',:td_class=>'align_center',:style=>'width: 70px;'},
-                   {:sort_field=>'warnings_count',:title=>'Alarms',:display_method=>"warnings_count",:td_class=>'align_center',:style=>'width: 70px;'},
-                   {:sort_field=>'price',:title=>'Price',:display_method=>"price",:td_class=>'align_center',:style=>'width: 70px;'},
-                   {:sort_field=>'budget_stats.estimated_costs',:title=>'Est. Cost',:display_method=>"active_budget.budget_stats.estimated_costs rescue '---'",:td_class=>'align_center',:style=>'width: 70px;'},
-                   {:sort_field=>'project_stats.actual_cost',:title=>'Actual Cost',:display_method=>"project_stats.actual_cost",:style=>'width: 90px;'},
-                   {:sort_field=>'progress',:title=>'<small>Prog<sup>3</sup></small>',:display_method=>"100 * project_stats.progress.round(2) if !project_stats.progress.nil?",:style=>'width: 70px;'}
-           ],:items_per_page=>12,
-           :class=>'fixed_columns alternatingRows',
-           :style => "padding-top:10px; padding-bottom:10px;" %>
-```
-This will render a sortable table. with the given settings.
+```erb
+<table>
+  <thead>
+    <tr>
+      <th><%= skima_sort_link(@table, :name) %></th>
+      <th><%= skima_sort_link(@table, :manager) %></th>
+      <th><%= skima_sort_link(@table, :budget) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @table.records.each do |project| %>
+      <tr>
+        <td><%= project.name %></td>
+        <td><%= project.manager_name %></td>
+        <td><%= @table.columns[:budget][:formatter].call(project) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-### Method sortable_table_tag( base_query, columns=[], opts={} )
-
--Arguments
-    -base_query
-        A string containing a set of rails commands that must return an ActiveRecord::Relation.
-
-        The query must contain a reference to any tables that will be used in either sorting or filtering either through a join() or an include().
-
-        NOTICE: a simple 'join()' will result in an INNER JOIN exluding any unpaired results.
-    -columns
-        An array of hashes representing each column in the table
-
-        The arguments for each column are:
-        [:sort_field]
-            The SQL field wich will be used for sorting this will be placed in the DB query
-        [:title]
-            The title for the html table header, can contain html, if blank the sort_field will be used
-        [:display_method]
-            The method to generate the content of each cell in the column, this is run in each model instance, and has controller_context and view_context available if needed
-        [:path_method]
-            The method used to generate an url which is then used to convert the cell into an hyperlink, run in the controller context with the variable 'model' available containing the model instance for each row
-        [:no_display]
-            This field wont be parsed to html.
-
-            Useful for when extra data is needed for JS or to pass specific CSS for each row.
-
-            NOTICE: Possible bug if the no_display columns are not added after displayed columns, untested.
-        [:disabled]
-            Boolean. Disables ordering on this column.
-    -options
-        [:default_order]
-            Order to be used in case there is no order selected.
-        [:items_per_page]
-            For paginate. Defaults to 10.
-        [:disable_backtrace]
-            Boolean. Disables caching of the selected order and filters. Unstable.
-        [:paginate]
-            Boolean, default true. Enable pagination.
-        [:group]
-            String. ID of the table and filters group. For when there is more than one sortable in the same page.
-        [OTHER OPTIONS]
-             All options accepted for a 'content_tag' helper. EX: :class, :style , :some_attribute
-
----
-
-# Filters
-
-## Example
-```ruby
-    Unit: <%= sortable_filter_tag  "division_id", ['All']+Division.all.map{|x|[ x.name, x.id]}, :style => "width:90px"%>
-    Status: <%= sortable_filter_tag  "status", ['All']+Project::STATUSES, :style => "width:90px"%>
-    Nature: <%= sortable_filter_tag "nature", ['All']+Project::TYPES, :style => "width:90px;"%>
-    Type: <%= sortable_filter_tag "project_type_id", ['All']+ProjectType.all.map{|x|[ x.name, x.id]}, :style => "width:90px"%>
-    Manager: <%=sortable_filter_tag("manager_id", users, :style => "width:90px") %>
-```
-### Method sortable_filter_tag(column_name, options_list,  opts = {})
-
-[Arguments]
-    [column_name]
-        String with the SQL column to be used for filtering. (Discarded if :raw_sql is true)
-    [options_list]
-        An array with 1 or 2 dimensions .
-
-        The first element ( ar[i][0] ) is displayed the second ( ar[i][1] ) is the actual value to be matched. ( some_query.where(column_name => option_value) )
-
-        If it has only one dimension both values are the same.
-
-        If :raw_sql is true then the second element should contain a valid WHERE condition. EX: 'users.login_attempts > 5'
-    [opts]
-        [:raw_sql]
-            Boolean. Defaults to false.
-
-            If true the value in the options list will be used literaly in the query ( some_query.where(option_value) )
-        [:group]
-            ID to match the one in the sortable table that is related to this filter. For when there is more than one sortable in the same page.
-        [:selected]
-            The selected option. Must be the same as the option value.
-        [OTHER OPTIONS]
-            All options that are valid for a 'select_tag' helper
----
-
-
-## Frontend
-This gem has Javascript and CSS files included to make the tables work on the browser
-
-*These files are added automatically to config.default_js *
-
-*These files must be present in your views for the frontend to work*
-
-> skima-sortable-tables.js
-> ,jquery.ba.bbq.js
-> ,jquery-ui.min.js
-> ,jquery-ui.css
-
--Events
-    -sortable.loaded
-        Fired after the table data has been loaded and rendered
-
-        Arguments passed with event
-
-        data: The data received for the table
-
-        $table: The table element Jquery reference
-
-        queryID: Unique identifier for the sortable query on the server
-
-## Re-using sortable filters and orders
-
-Catch the data loaded event in javascript
-```javascript
-    $('your sortable table or document or whatever').on('sortable.loaded',someFunction);
-    function someFunction(evt, data, $tableElement, queryID){
-        //Send the reference to the query to the server
-        $.ajax({
-            url:'some_path'
-            data:{sortable_id:queryID}
-        })
-    }
-```
-Then use the sortable filters in your controller
-```ruby
-    def some_action
-        my_base_query = User.where('some_rule')# or User or User.order_by() or SomeModel.join() or whatever
-        include_order = false
-        users = SortableSkima.attach_sortables( my_base_query,  params['sortable_id'], cur_user_or_admin, include_order)
-
-        #...do what you want with your results
-    end
+<!-- Pagination is handled automatically via Pagy -->
+<%== pagy_nav(@table.pagy_obj) %>
 ```
 
-    ---
+## Frontend: Single Page Applications (JSON)
 
+If you are using a modern frontend library like React (e.g., TanStack Table) or Vue, you can fetch the `.json` endpoint. SortableSkima provides a highly structured payload:
+
+```json
+{
+  "columns": [
+    { "key": "name", "title": "Project Name", "sortable": true },
+    { "key": "manager", "title": "Manager", "sortable": true }
+  ],
+  "filters": [
+    { "key": "status", "options": ["Active", "Archived"] }
+  ],
+  "pagination": {
+    "current_page": 1,
+    "total_pages": 5,
+    "total_count": 100,
+    "per_page": 20,
+    "next_page": 2,
+    "prev_page": null
+  },
+  "data": [
+    { "name": "Apollo", "manager": "John Doe", "budget": "$50000" }
+  ]
+}
+```
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

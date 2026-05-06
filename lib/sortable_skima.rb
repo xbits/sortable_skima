@@ -1,7 +1,8 @@
 require "sortable_skima/engine"
+require "pagy"
+require "pagy/backend"
 require "sortable_skima/base"
 require "sortable_skima/serializer"
-require "pagy"
 
 module SortableSkima
   # Yield self on setup for nice config blocks

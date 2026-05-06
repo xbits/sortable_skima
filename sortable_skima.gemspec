@@ -17,7 +17,9 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "railties", ">= 6.0"
   spec.add_runtime_dependency "pagy", "~> 9.0"
 
-  spec.has_rdoc          = true
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "activerecord", ">= 6.0"
   spec.extra_rdoc_files  = %w[README.md]
   spec.rdoc_options      = %w[--main README.md]
   spec.files = %w[README.md] + Dir['{lib,app}/**/*']
